@@ -1,0 +1,49 @@
+{% extends 'trainer/trainerhome_index.html' %}
+
+{% block body %}
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <form action="/trainer/trainer_editposture_post/" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table class="table table-bordered">
+  <tr><input type="hidden" name="id" value="{{ data.id }}">
+    <td style="color: white">Category </td>
+    <td><select name="select" id="select" class="form-control">
+          {% for i in data2 %}
+          <option value="{{ i.id }}" {% if data.CATEGORY.id == i.id %}selected{% endif %}>{{ i.categoryname }}</option>
+          {% endfor %}
+      </select></td>
+  </tr>
+  <tr>
+    <td style="color: white">Title</td>
+    <td style="color: white">
+      <input type="text" name="textfield" id="textfield" required class="form-control" value="{{ data.title }}" /></td>
+  </tr>
+  <tr>
+    <td style="color: white">Image</td>
+    <td style="color: white">
+        <img src="{{ data.image.url }}"width="50"height="50"/>
+      <input type="file" name="fileField" id="fileField"  />
+    </td>
+  </tr>
+  <tr>
+    <td style="color: white">Video</td>
+    <td style="color: white">
+        <video src="{{ data.video_file.url }}" controls width="50"height="50" ></video>
+        <span><input type="file" name="fileField2" id="fileField2" /></span>
+    </td>
+  </tr>
+  <tr>
+    <td align="center"colspan="2"><input type="submit" name="button" id="button" value="update" class="btn btn-success" /></td>
+  </tr>
+</table>
+</form>
+
+
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}

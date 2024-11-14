@@ -1,0 +1,55 @@
+{% extends 'admin/home_index.html' %}
+
+{% block body %}
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <form id="form1" name="form1" method="post" action="#">
+ {% csrf_token %}
+<table class="pull-left">
+<!--    <tr>-->
+<!--    <td style="color: white"><td>-->
+<!--        <select name="select" id="select" class="form-control ">-->
+<!--            {% for i in cat %}-->
+<!--            <option value="{{ i.id }}">{{ i.categoryname }}</option>-->
+<!--            {% endfor %}-->
+<!--      </select></td>-->
+<!--      <td><input type="submit" name="button" id="button" value="Go" class="btn btn-success"/></td>-->
+<!--    </tr>-->
+  </table>
+            <br>
+            <br>
+            <br>
+    <table class="table table-bordered">
+    <tr>
+              <td style="color: white">sl.no</td>
+
+      <td style="color: white">Trainer Name</td>
+      <td style="color: white">Created at</td>
+              <td style="color: white">Description</td>
+
+
+    </tr>
+                  {% for i in ta %}
+
+    <tr>
+            <td style="color: white">{{ forloop.counter }}</td>
+        <td  style="color: white">{{ i.user.first_name }}</td>
+    <td  style="color: white">{{ i.created_at }} </td>
+      <td style="color: white"> {{ i.discription }}</td>
+    
+
+</tr>
+              {% endfor %}
+
+  </table>
+</form>
+
+
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}

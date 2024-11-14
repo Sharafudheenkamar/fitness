@@ -1,0 +1,38 @@
+{% extends 'admin/home_index.html' %}
+
+{% block body %}
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+<form id="form1" name="form1" method="post" action="/adminfitness/admin_viewusermoredetails/">
+
+    <table class="table table-bordered">
+        <tr style="background-color: #0c5460">
+      <td style="color: white">Dob</td>
+      <td style="color: white">Email</td>
+      <td style="color: white">Place</td>
+      <td style="color: white">Height</td>
+      <td style="color: white">Weight</td>
+
+
+         </tr>
+    <tr>
+      <td style="color: white">&nbsp;{{dt.user.dob}}</td>
+        <td style="color: white">{{dt.user.email}}</td>
+        <td style="color: white">{{dt.user.place}}</td>
+      <td style="color: white">{{dt.height}}</td>
+      <td style="color: white">{{dt.weight}}</td>
+
+    </tr>
+
+
+  </table>
+</form>
+
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}

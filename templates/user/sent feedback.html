@@ -1,0 +1,28 @@
+{% extends 'user/userhome_index.html' %}
+
+{% block body %}
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+
+<form action="/client/user_sentfeedback_post/" method="post">
+    {% csrf_token %}
+    <table class="table table-bordered">
+  <tr>
+    <td  style="color: white" >Feedback</td>
+    <td>
+      <textarea name="textarea" id="textarea" cols="45" rows="5" required class="form-control"></textarea></td>
+  </tr>
+  <tr>
+    <td align="center"colspan="2"><input type="submit" name="button" id="button" value="send" class="btn btn-success" /></td>
+  </tr>
+</table>
+</form>
+
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}

@@ -1,0 +1,96 @@
+
+{% extends 'admin/home_index.html' %}
+
+{% block body %}
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+<form action="/adminfitness/admin_viewtrainer_post/#hii" method="post">
+{% csrf_token %}
+<table  class="pull-left"  style="color: white">
+  <tr>
+{#      <th style="color: white">Name#}
+{#      </th>#}
+    <td >
+    <input type="text" name="textfield" id="textfield" class="form-control" required placeholder="Name" />
+
+</td>
+
+    <td><input type="submit" name="button" id="button" value="Search" class="btn btn-success" /></td>
+  </tr>
+</table>
+<br>
+<br>
+<br>
+    <table class="table table-bordered">
+     <tr style="background-color: #0c5460">
+      <td style="color: white">Sl.no</td>
+      <td style="color: white">Name</td>
+      <td style="color: white">Dob</td>
+      <td style="color: white" >Gender</td>
+      <td style="color: white" >Email</td>
+      <td style="color: white" >Phone</td>
+      <td style="color: white">Place</td>
+      <td style="color: white">Certificate</td>
+      <td style="color: white">photo</td>
+      <td></td>
+      <td></td>
+      <td></td>
+
+
+     
+    </tr>
+      {% for i in dt %}
+    <tr>
+      <td style="color: white">{{ forloop.counter }}</td>
+      <td style="color: white">{{ i.user.first_name }}</td>
+      <td style="color: white">&nbsp;{{ i.user.dob }}</td>
+      <td style="color: white">{{ i.user.gender }}</td>
+      <td style="color: white">{{ i.user.email }}</td>
+      <td style="color: white">{{ i.user.phoneno }}</td>
+      <td style="color: white">{{ i.user.place }}</td>
+      <td><img src="{{ i.certificate.url }}" height="60px" width="60px" alt=""/></td>
+        <td><img src="{{ i.user.photo.url }}" height="60px" width="60px" alt=""/></td>
+      <td><a href="/adminfitness/admin_updatetrainers/{{ i.id }}" class="btn btn-info">Edit</a></td>
+      <td><a href="/adminfitness/admin_deletetrainer/{{ i.id }}" class="btn btn-danger">Delete</a></td>
+          <td><a href="/adminfitness/admin_trainerviewposturevideo/{{ i.user.pk }}#hii"class="btn btn-outline-info">View video</a></td>
+
+    </tr>
+      {% endfor %}
+  </table>
+</form>
+
+        </div>
+    </div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const searchForm = document.getElementById("search-form");
+    const searchInput = document.getElementById("textfield");
+    const tableRows = document.querySelectorAll(".table-bordered tr");
+
+    searchForm.addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent form submission
+
+        const searchTerm = searchInput.value.toLowerCase(); // Get search term
+
+        // Loop through table rows
+        tableRows.forEach(function(row) {
+            const nameCell = row.cells[1]; // Assuming name cell is the second cell (index 1)
+
+            // Check if name contains search term
+            if (nameCell.textContent.toLowerCase().includes(searchTerm)) {
+                row.style.display = ""; // Show row if matched
+            } else {
+                row.style.display = "none"; // Hide row if not matched
+            }
+        });
+    });
+});
+
+</script>
+</body>
+
+{% endblock%}

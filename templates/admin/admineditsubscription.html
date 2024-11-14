@@ -1,0 +1,59 @@
+{% extends 'admin/home_index.html' %}
+{% block body %}
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+<form action="/adminfitness/admin_updatesubscription/{{data.id}}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <table class="table table-bordered">
+  <tr>
+    <td style="color: white">Subscription plan name </td>
+    <td style="color: white">
+    <input type="text" name="subscriptionname" id="textfield" class="form-control" value="{{ data.subscriptionname }}" /></td>
+  </tr>
+  <tr>
+    <td style="color: white">Monthly price </td>
+    <td>
+      <label>
+        <input type="" name="monthlyprice" value="{{ data.monthlyprice }}"/>
+    </td>
+  </tr>
+  <tr>
+    <td style="color: white">Workout videoes</td>
+    <td>
+      <input type="checkbox" name="workoutvideoes" id="textfield2" class="form-control" {% if data.workoutvideoes  == True %} checked {% endif %} /></td>
+  </tr>
+  <tr>
+    <td style="color: white">Dietplans</td>
+    <td>
+      <input type="checkbox" name="dietplans" id="textfield3" class="form-control" {% if data.dietplans  == True %} checked {% endif %} /></td>
+  </tr>
+  <tr>
+    <td style="color: white">Work out challenges</td>
+    <td>
+      <input type="checkbox" name="workoutchallenges" id="textfield4" class="form-control" {% if data.workoutchallenges  == True %} checked {% endif %}   />
+</td>
+  </tr>
+  <tr>
+    <td style="color: white">Chat support</td>
+    <td>
+      <input type="checkbox" name="chatsupport" id="textfield5" class="form-control" {% if data.chatsupport  == True %} checked {% endif %} /></td>
+  </tr>
+  <tr>
+    <td style="color: white">Physiotherapy</td>
+    <td>
+      <input type="checkbox" name="physiotherapy" id="" class="form-control" {% if data.physiotherapy  == True %} checked {% endif %} /></td>
+  </tr>
+   <tr>
+    <td align="center"colspan="2"><input type="submit" value="Add" class="btn btn-info" /></td>
+  </tr>
+</table>
+</form>
+
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'trainer/trainerhome_index.html' %}
+
+{% block body %}
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <form action="/trainer/trainer_edittask/{{ data.id }}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="hidden" name="id" id="textfield" value="{{ data.id }}"/>
+    <table class="table table-bordered">
+  <tr>
+    <td style="color: white">Title</td>
+    <td><label for="select"></label>
+      <label for="textfield"></label>
+      <input type="text" name="title" id="textfield" value="{{ data.title }}" required /></td>
+
+  </tr>
+  <tr>
+    <td style="color: white">Description</td>
+    <td style="color: white"><label for="fileField"></label>
+      <input type="text" name="discription" id="fileField" value="{{ data.discription }}" /></td>
+
+  </tr>
+  <tr>
+    <td align="center"colspan="2"><input type="submit" name="button" id="button" value="Update" class="btn btn-info"/></td>
+
+  </tr>
+</table>
+</form>
+
+
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}
+

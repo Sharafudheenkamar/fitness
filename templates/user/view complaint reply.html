@@ -1,0 +1,54 @@
+{% extends 'user/userhome_index.html' %}
+
+{% block body %}
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+
+<form id="form1" name="form1" method="post" action="/myapp/user_viewcomplaintreply_post/#hii">
+
+{% csrf_token %}
+<table  class="pull-left mb-3 mt-3">
+  <tr>
+    <td style="color: white" >From Date</td>
+    <td>
+    <input type="date" name="textfield" id="textfield"class="form-control" /></td>
+    <td style="color: white">To Date</td>
+    <td>
+    <input type="date" name="textfield2" id="textfield2"class="form-control" /></td>
+    <td><input type="submit" name="button" id="button" value="Go" class="btn btn-success" /></td>
+  </tr>
+</table>
+<br>
+<br>
+<br>
+
+    <table class="table table-bordered">
+  <tr>
+    <td style="color: white">Sl.no</td>
+    <td style="color: white">Date</td>
+    <td style="color: white">Complaint</td>
+    <td style="color: white">Status</td>
+    <td style="color: white">Reply</td>
+  </tr>
+     {% for i in data %}
+  <tr>
+    <td style="color: white">{{ forloop.counter }}</td>
+    <td style="color: white">&nbsp;{{ i.created_at }}</td>
+    <td style="color: white">&nbsp;{{ i.complaints }}</td>
+    <td style="color: white">{{i.status }}</td>
+    <td style="color: white">{{ i.reply }}</td>
+  </tr>
+          {% endfor %}
+
+</table>
+</form>
+
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}
+

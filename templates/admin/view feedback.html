@@ -1,0 +1,48 @@
+{% extends 'admin/home_index.html' %}
+
+{% block body %}
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+<form id="form1" name="form1" method="post" action="/adminfitness/admin_viewfeedback_post/#hii">
+{% csrf_token %}
+
+<table  class="pull-left"  style="color: white">
+    <tr>
+      <td  style="color: white">From date</td>
+      <td>
+      <input type="date" name="textfield" id="textfield"  class="form-control"  required/></td>
+      <td  style="color: white">To date</td>
+      <td>
+      <input type="date" name="textfield2" id="textfield2"  class="form-control" required/></td>
+      <td><input type="submit" name="button" id="button" value="Search"  class="btn btn-success"/></td>
+    </tr>
+  </table>
+<br>
+<br>
+<br>
+    <table class="table table-bordered">
+    <tr style="background-color: #0c5460">
+      <td  style="color: white">Sl.no</td>
+      <td  style="color: white">Date</td>
+      <td  style="color: white">User name</td>
+      <td  style="color: white">Feedback</td>
+    </tr>
+      {% for i in data %}
+    <tr>
+      <td  style="color: white">&nbsp;{{ forloop.counter }}</td>
+      <td  style="color: white">&nbsp;{{ i.created_at }}</td>
+      <td  style="color: white">&nbsp;{{ i.user.first_name }}</td>
+      <td  style="color: white">&nbsp;{{ i.discription }}</td>
+    </tr>
+      {% endfor %}
+  </table>
+</form>
+
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}
+

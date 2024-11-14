@@ -1,0 +1,74 @@
+{% extends 'admin/home_index.html' %}
+{% block body %}
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+<form action="{% url 'adminfitness:admin_addtrainers_post' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <table class="table table-bordered">
+  <tr>
+    <td style="color: white">Name</td>
+    <td style="color: white">
+    <input type="text" name="first_name" id="textfield" class="form-control" required pattern="[A-Z a-z]+"/></td>
+  </tr>
+  <tr>
+    <td style="color: white">Gender</td>
+    <td><p>
+      <label>
+        <input type="radio" name="gender" value="Male" id="RadioGroup1_0"  checked/>
+        Male</label>
+      <br />
+      <label>
+        <input type="radio" name="gender" value="Female" id="RadioGroup1_1" />
+        Female</label>
+      <br />
+      <label>
+        <input type="radio" name="gender" value="Others" id="RadioGroup1_2" />
+        Others</label>
+      <br />
+    </p></td>
+  </tr>
+  <tr>
+    <td style="color: white">Dob</td>
+    <td>
+      <input type="date" name="dob" id="textfield2" max="2005-01-01" class="form-control" required/></td>
+  </tr>
+  <tr>
+    <td style="color: white">Place</td>
+    <td>
+      <input type="text" name="place" id="textfield3" class="form-control" required/></td>
+  </tr>
+  <tr>
+    <td style="color: white">Email</td>
+    <td>
+      <input type="email" name="email" id="textfield4" class="form-control" required  pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$">
+  </td>
+  </tr>
+  <tr>
+    <td style="color: white">Phone</td>
+    <td>
+      <input type="text" name="phoneno" id="textfield5" class="form-control" required pattern="[9876][0-9]{9}" maxlength="10"/></td>
+  </tr>
+  <tr>
+    <td style="color: white">Certificate</td>
+    <td>
+      <input type="file" name="certificate" id="fileField" class="form-control" required/></td>
+  </tr>
+  <tr>
+    <td style="color: white">Photo</td>
+    <td>
+      <input type="file" name="photo" id="fileField2" class="form-control" required/></td>
+  </tr>
+   <tr>
+    <td align="center"colspan="2"><input type="submit" value="Add" class="btn btn-info" /></td>
+  </tr>
+</table>
+</form>
+
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}

@@ -1,0 +1,27 @@
+            // Function to fetch latest chat messages from the server
+            function fetchChatHistory() {
+                // Get sender ID from session or other source
+                var senderId = "{{ request.session.user_id }}";
+                // Get recipient ID from chat.from_id or other source
+                var recipientId = "{{ chat.from_id }}";
+                $.ajax({
+                    type: "GET",
+                    url: "/trainer/view_chat_history/",  // Specify the URL to fetch chat history
+                    data: {
+                        sender_id: senderId,
+                        recipient_id: recipientId
+                    },
+                    success: function(response){
+                        // Replace the chat history with the updated messages
+                        $("#chat-history").html(response);
+                    },
+                    error: function(xhr, status, error){
+                        // Handle errors if any
+                        console.error(xhr.responseText);
+                    }
+                });
+            }
+
+            // Fetch chat history when the page loads
+            fetchChatHistory();
+        });

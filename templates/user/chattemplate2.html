@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat History</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        ul#chat-history {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li.sent {
+            background-color: #DCF8C6;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            text-align: right;
+            max-width: 70%;
+            margin-left: auto;
+            margin-right: 10px;
+        }
+
+        li.received {
+            background-color: #F0F0F0;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            text-align: left;
+            max-width: 70%;
+            margin-right: auto;
+            margin-left: 10px;
+        }
+
+        #chatbox {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 70px);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            margin-right: 10px;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            // Function to fetch latest chat messages from the server
+            function fetchChatHistory(fromId, toId) {
+                $.ajax({
+                    type: "GET",
+                    url: "/trainer/view_chat_history/",  // Specify the URL to fetch chat history
+                    data: {
+                        sender_id: fromId,
+                        recipient_id: toId
+                    },
+                    success: function(response){
+                        // Replace the chat history with the updated messages
+                        $("#chat-history").html(response);
+                    },
+                    error: function(xhr, status, error){
+                        // Handle errors if any
+                        console.error(xhr.responseText);
+                    }
+                });
+            }
+
+            // Fetch chat history when the page loads
+            var senderId = "{{ chat.to_id }}";
+            var recipientId = "{{ chat.from_id }}";
+            fetchChatHistory(senderId, recipientId);
+
+            // Function to send message using AJAX
+            $("#chat-form").submit(function(event){
+                event.preventDefault(); // Prevent default form submission
+                var formData = $(this).serialize();
+                // Serialize form data
+                var fromId = $(this).find('input[name="from_id"]').val();
+                var toId = $(this).find('input[name="to_id"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: "/trainer/trainerchatpost/",  // Specify the URL to send the message
+                    data: formData,
+
+                    success: function(response){
+                        // Fetch latest chat messages and update the chat history
+
+                        fetchChatHistory(fromId, toId);
+                        form.find('input[name="message"]').val('');
+
+                    },
+                    error: function(xhr, status, error){
+                        // Handle errors if any
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Chat History</h1>
+    <ul id="chat-history">
+        <!-- Chat history will be displayed here -->
+        {% for chat in chats %}
+         <li class="{% if chat.from_id ==  request.session.user_id.0  %}sent{% else %}received{% endif %}">
+<!--            <strong>From:</strong> {{ chat.from_id }}<br>-->
+<!--            <strong>To:</strong> {{ chat.to_id }}<br>-->
+            <strong>Message:</strong> {{ chat.message }}<br>
+<!--            <strong>Created At:</strong> {{ chat.created_at }}<br>-->
+        </li>
+        {% endfor %}
+    </ul>
+    <div id="chatbox">
+        <form id="chat-form" method="post">
+            {% csrf_token %}
+            {% if to_id %}
+            <input type="hidden" name="from_id" value="{{ request.session.user_id.0 }}">
+            <input type="hidden" name="to_id" value="{{to_id}}">
+            <input type="text" name="message" id="id_message" placeholder="Type your message here" required>
+            <button type="submit">Send</button>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>
